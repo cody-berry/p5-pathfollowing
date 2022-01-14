@@ -5,7 +5,7 @@ class Vehicle {
     constructor(x, y) {
         // our natural position, velocity, acceleration
         this.pos = new p5.Vector(x, y)
-        this.vel = new p5.Vector(0, 0)
+        this.vel = new p5.Vector(2, 0)
         this.acc = new p5.Vector(0, 0)
         // our radius
         this.r = 16
