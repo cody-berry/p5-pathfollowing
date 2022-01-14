@@ -21,7 +21,7 @@ function setup() {
     colorMode(HSB, 360, 100, 100, 100)
     vehicle = new Vehicle(random(width), random(height))
     // gravity = new p5.Vector(0, 0.1)
-    path = new Path(0, height/2, width, height/2)
+    path = new Path(10, height/2, width - 10, height/2)
 }
 
 function draw() {

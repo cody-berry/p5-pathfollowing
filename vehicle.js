@@ -52,4 +52,25 @@ class Vehicle {
         // set our acceleration back to 0
         this.acc = new p5.Vector(0, 0)
     }
+
+    // checks the edges
+    edges() {
+        // left
+        if (this.pos.x - this.r < 0) {
+            this.pos.x = width - this.r
+        }
+        // right
+        if (this.pos.x + this.r > width) {
+            this.pos.x = this.r
+        }
+
+        // bottom
+        if (this.pos.y + this.r > height) {
+            this.pos.y = this.r
+        }
+        // top
+        if (this.pos.y - this.r < 0) {
+            this.pos.y = height - this.r
+        }
+    }
 }
