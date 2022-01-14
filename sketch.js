@@ -36,6 +36,8 @@ function draw() {
     // vehicle.applyForce(gravity)
     vehicle.update()
     // vehicle.seek(target)
+    vehicle.follow(path)
+    vehicle.edges()
 
     path.show()
 }
