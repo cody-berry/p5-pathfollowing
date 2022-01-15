@@ -17,7 +17,7 @@ class Vehicle {
     constructor(x, y) {
         // our natural position, velocity, acceleration
         this.pos = new p5.Vector(x, y)
-        this.vel = new p5.Vector(2, 0)
+        this.vel = new p5.Vector(-2, 0)
         this.acc = new p5.Vector(0, 0)
         // our radius
         this.r = 16
@@ -50,14 +50,30 @@ class Vehicle {
 
         // Step 2
         // Is future "on" our path?
-        let target = findProjection(path.start, future, path.end) // Step 3
+        let target = findProjection(path.start, future, path.end)
+        // Step 3
         // Find projection point
         fill(120, 100, 100)
         noStroke()
         circle(target.x, target.y, 16)
 
         let d = p5.Vector.dist(future, target)
-        if (d < path.r) {
+        // Amendment: Seek a point a bit ahead of the target but
+        // still on our path.
+        // wait, but it's always going opposite of the start!
+        let target_amendment
+        if (this.vel.x >= 0) {
+            target_amendment = p5.Vector.sub(target, path.start)
+            target_amendment.setMag(20)
+        } else {
+            target_amendment = p5.Vector.sub(target, path.end)
+            target_amendment.setMag(20)
+        }
+        target.add(target_amendment)
+        circle(target.x, target.y, 16)
+        if (d > path.r) {
+            // Step 4
+            // If our distance condition is true, seek our target.
             this.seek(target)
         }
     }

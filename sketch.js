@@ -32,6 +32,10 @@ function draw() {
     // target = createVector(mouseX, mouseY)
     // circle(target.x, target.y, 32)
 
+    // let's make fun with our path!
+
+    path.end.y = mouseY
+
     vehicle.show()
     // vehicle.applyForce(gravity)
     vehicle.update()
