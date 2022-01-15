@@ -4,6 +4,8 @@
 // This was mainly what we were building for vectorProjection().
 
 function findProjection(pos, a, b) {
+    strokeWeight(3)
+    stroke(0, 0, 100)
     let v1 = p5.Vector.sub(a, pos)
     let v2 = p5.Vector.sub(b, pos)
     v2.normalize()
@@ -47,6 +49,10 @@ class Vehicle {
         future.add(this.pos)
         fill(0, 100, 100)
         circle(future.x, future.y, 16)
+        drawingContext.setLineDash([5])
+        stroke(0, 0, 100)
+        strokeWeight(3)
+        line(this.pos.x, this.pos.y, future.x, future.y)
 
         // Step 2
         // Is future "on" our path?
@@ -56,11 +62,14 @@ class Vehicle {
         fill(120, 100, 100)
         noStroke()
         circle(target.x, target.y, 16)
+        stroke(0, 0, 100)
+        line(future.x, future.y, target.x, target.y)
 
         let d = p5.Vector.dist(future, target)
         // Amendment: Seek a point a bit ahead of the target but
         // still on our path.
-        // wait, but it's always going opposite of the start!
+        // wait, but it's always going opposite of the start of the path!
+        // let's make it so that that doesn't happen.
         let target_amendment
         if (this.vel.x >= 0) {
             target_amendment = p5.Vector.sub(target, path.start)
@@ -69,13 +78,21 @@ class Vehicle {
             target_amendment = p5.Vector.sub(target, path.end)
             target_amendment.setMag(20)
         }
-        target.add(target_amendment)
-        circle(target.x, target.y, 16)
+        stroke(0, 0, 100)
+        strokeWeight(5)
+        // our amendment target
+        let newTarget = p5.Vector.add(target, target_amendment)
+        stroke(0, 0, 100)
+        line(target.x, target.y, newTarget.x, newTarget.y)
+        fill(200, 100, 100)
+        noStroke()
+        circle(newTarget.x, newTarget.y, 16)
         if (d > path.r) {
             // Step 4
             // If our distance condition is true, seek our target.
-            this.seek(target)
+            this.seek(newTarget)
         }
+        drawingContext.setLineDash([])
     }
 
     show() {
